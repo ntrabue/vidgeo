@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vidgeo - Simple Video to GIF</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Vidgeo</h1>
+      <p class="tagline">Simple video to GIF for social media</p>
+    </header>
+
+    <main>
+      <!-- Import Section -->
+      <section class="import-section" id="importSection">
+        <div class="drop-zone" id="dropZone">
+          <input type="file" id="fileInput" accept="video/*" hidden>
+          <div class="drop-content">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            <p>Drop video here or <span class="browse-link">browse</span></p>
+            <small>Supports MP4, WebM, MOV</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- Editor Section -->
+      <section class="editor-section" id="editorSection" hidden>
+        <div class="video-container">
+          <video id="videoPlayer" playsinline></video>
+          <div class="video-controls">
+            <button id="playPauseBtn" class="control-btn" title="Play/Pause (Space)">
+              <svg class="play-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
+              <svg class="pause-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" hidden>
+                <rect x="6" y="4" width="4" height="16"/>
+                <rect x="14" y="4" width="4" height="16"/>
+              </svg>
+            </button>
+            <span class="time-display">
+              <span id="currentTime">0:00.0</span> / <span id="duration">0:00.0</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="timeline-container">
+          <div class="timeline" id="timeline">
+            <div class="playhead" id="playhead"></div>
+            <div class="segments" id="segments"></div>
+          </div>
+          <div class="timeline-actions">
+            <button id="splitBtn" class="action-btn" title="Split at playhead (S)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="2" x2="12" y2="22"/>
+                <polyline points="8 6 12 2 16 6"/>
+                <polyline points="8 18 12 22 16 18"/>
+              </svg>
+              Split
+            </button>
+            <button id="deleteBtn" class="action-btn danger" title="Delete selected segment (Delete)" disabled>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3 6 5 6 21 6"/>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+              </svg>
+              Delete
+            </button>
+            <button id="undoBtn" class="action-btn" title="Undo (Ctrl+Z)" disabled>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="1 4 1 10 7 10"/>
+                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+              </svg>
+              Undo
+            </button>
+          </div>
+        </div>
+
+        <!-- Export Section -->
+        <div class="export-section">
+          <div class="export-options">
+            <label>
+              Width:
+              <select id="gifWidth">
+                <option value="320">320px</option>
+                <option value="480" selected>480px</option>
+                <option value="640">640px</option>
+                <option value="800">800px</option>
+              </select>
+            </label>
+            <label>
+              FPS:
+              <select id="gifFps">
+                <option value="10">10 fps</option>
+                <option value="15" selected>15 fps</option>
+                <option value="20">20 fps</option>
+                <option value="30">30 fps</option>
+              </select>
+            </label>
+          </div>
+          <button id="exportBtn" class="export-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Export GIF
+          </button>
+        </div>
+
+        <button id="newVideoBtn" class="new-video-btn">Load Different Video</button>
+      </section>
+
+      <!-- Progress Overlay -->
+      <div class="progress-overlay" id="progressOverlay" hidden>
+        <div class="progress-content">
+          <div class="spinner"></div>
+          <p id="progressText">Processing...</p>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="ffmpeg.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
