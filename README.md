@@ -58,4 +58,4 @@ Vidgeo uses [FFmpeg WASM](https://ffmpegwasm.netlify.app/) to process videos ent
 
 ## Credits
 
-This project was entirely vibe coded by Claude Sonet 4.5.
+This project was entirely vibe coded by Claude Opus 4.5.
